@@ -1,0 +1,50 @@
+<html>
+   <head>
+     <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='style.css') }}" >
+     <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='layout.css') }}" >
+   </head>
+   <body>
+     <div class="container">
+       <div class="header_box"  style="background-image:url(../static/background.JPG)">
+       <br>
+         <h1>CPP Activity Predictor</h1>
+         <p>iGEM Team Tübingen 2019</p>
+         <div class="logo">
+             <p class="aligncenter">
+             <img style="width:10%" src="{{url_for("static", filename="T--Tuebingen--white_logo_animated.gif")}}"/>
+             </p>
+         </div>
+       <br>
+       </div >
+
+
+
+       <br>
+       <div>
+          <a href={{ url_for('index') }} style="vertical-align:middle" class='ph-button ph-btn-blue'>&lt;&lt; Back</a>
+       </div>
+           <h1>Predict from sequence</h1>
+   <form action="" method="post" novalidate>
+       {{ form.hidden_tag() }}
+       <p>
+           {{ form.sequence.label }}<br>
+           {{ form.sequence(size=32) }}<br>
+           {% for error in form.sequence.errors %}
+           <span style="color: red;">[{{ error }}]</span>
+           {% endfor %}
+       </p>
+       <p>{{ form.submit() }}</p>
+   </form>
+   {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+      </div>
+   </body>
+</html>

@@ -1,0 +1,88 @@
+<head>
+  <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='style.css') }}" >
+  <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='layout.css') }}" >
+</head>
+
+
+<body>
+  <div class="container">
+    <div class="header_box"  style="background-image:url(static/background.JPG)">
+    <br>
+      <h1>CPP Activity Predictor</h1>
+      <p>iGEM Team Tübingen 2019</p>
+      <div class="logo">
+          <p class="aligncenter">
+          <img style="width:10%" src="{{url_for("static", filename="T--Tuebingen--white_logo_animated.gif")}}"/>
+          </p>
+      </div>
+    <br>
+    </div >
+
+    <br>
+    <p style="text-align:center;">Please choose the format of the protein, of which you want to predict its activity:</p>
+
+    <div class="row">
+    <div class="menu">
+      <div class="menu_img_float">
+        <img style="width:70%" src="{{url_for("static", filename="aa_seq.png")}}"/>
+      </div>
+      <br>
+      <div class="ph-float">
+        <a href={{ url_for('fromsequence') }} class='ph-button ph-btn-blue'>From Sequence</a>
+      </div>
+      <br>
+      <section class="accordion">
+        <input type="checkbox" name="collapse1" id="handle1">
+        <h2 class="handle">
+          <label for="handle1">More Info</label>
+        </h2>
+        <div class="content">
+          <p> Our tool supports protein sequences in FastA Format, which is a simple string of the one letter characters for each amino acid.  Please make sure to only use sequences containing the characters of the 20 standard amino acids.</p>
+
+        </div>
+      </section>
+    </div>
+
+    <div class="menu">
+      <div class="menu_img_float">
+        <img style="width:70%" src={{url_for("static", filename="uniprot.png")}}/>
+      </div>
+      <br>
+      <div class="ph-float">
+        <a href={{ url_for('from_up') }} style="vertical-align:middle" class='ph-button ph-btn-blue'>Uniprot ID</a>
+      </div>
+      <br>
+
+      <section class="accordion">
+        <input type="checkbox" name="collapse2" id="handle2">
+        <h2 class="handle">
+          <label for="handle2">More Info</label>
+        </h2>
+        <div class="content">
+          <p>Proteins can also be submitted to the predictor by their unique Uniprot ID (e.g. P31946). Our tool acquires automatically the amino acid sequence and makes the prediction. For this function, an internet connection is required.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="menu">
+      <div class="menu_img_float">
+        <img style="width:70%" src={{url_for("static", filename="iGEM.png")}}/>
+      </div>
+      <br>
+      <div class="ph-float">
+        <a href={{ url_for('from_igem') }} class='ph-button ph-btn-blue'>Registry ID</a>
+      </div>
+      <br>
+      <section class="accordion">
+        <input type="checkbox" name="collapse3" id="handle3">
+        <h2 class="handle">
+          <label for="handle3">More Info</label>
+        </h2>
+        <div class="content">
+          <p>iGEM registries ID can also be used as an input.  If the submitted ID corresponds to the nucleic acid sequence of a protein, the sequence is translated to the corresponding protein sequence and a prediction is made on the protein sequence. For this function, an internet connection is required.</p>
+        </div>
+      </section>
+  </div>
+</div>
+</div>
+<body>
