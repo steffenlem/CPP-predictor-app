@@ -9,7 +9,7 @@ class SequenceForm(FlaskForm):
 
 
 class UniprotForm(FlaskForm):
-    sequence = StringField('Uniprot ID', validators=[DataRequired()])
+    sequence = StringField('UniProtKB Accession Number', validators=[DataRequired()])
     submit = SubmitField('Predict')
 
 

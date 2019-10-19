@@ -4,7 +4,7 @@ from app.scripts.parse_uniprot import parse_uniprot
 from app.scripts.forms import SequenceForm, UniprotForm, IGEMForm
 from app.scripts.parse_igem_registry import get_registry_info
 from app.scripts.predictor import predict_sequence
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, Markup
 from c3pred.c3pred import *
 
 
@@ -20,10 +20,15 @@ def fromsequence():
     if form.validate_on_submit():
         results = predict_fasta(form.sequence.data)
         if results.error:
-            flash('Error:\t' + results.error_type)
+            table_to_print = '<table class ="tg" align="center"><tr><th class="tg-lboi">Sequence</th><th class="tg-lboi">' + form.sequence.data + \
+                             '</td></tr><tr><td class="tg-lboi">Error</td><td class="tg-lboi">' + results.error_type + \
+                             '</td></tr></table>'
+            flash(Markup(table_to_print))
         else:
-            flash('Sequence:\t' + results.sequence)
-            flash('Activity:\t' + str(results.activity))
+            table_to_print = '<table class ="tg" align="center"><tr><th class="tg-lboi">Sequence</th><th class="tg-lboi">' + form.sequence.data + \
+                             '</td></tr><tr><td class="tg-lboi">Activity</td><td class="tg-lboi">' + str(results.activity) +  \
+                             '</td></tr></table>'
+            flash(Markup(table_to_print))
         return redirect(url_for('fromsequence'))
     return render_template('fromsequence.html', title='Prediction', form=form)
 
@@ -34,12 +39,18 @@ def from_up():
     if form.validate_on_submit():
         results = predict_uniprot(form.sequence.data)
         if results.error:
-            flash('Error:\t' + results.error_type)
+            table_to_print = '<table class ="tg" align="center"><tr><th class="tg-lboi">Accession Number</th><th class="tg-lboi">' + form.sequence.data + \
+                             '</td></tr><tr><td class="tg-lboi">Error</td><td class="tg-lboi">' + results.error_type + \
+                             '</td></tr></table>'
+            flash(Markup(table_to_print))
         else:
-            flash('Description:\t' + results.description)
-            flash('Sequence:\t' + results.sequence)
-            flash('Activity:\t' + str(results.activity))
-        return redirect(url_for('from_igem'))
+            table_to_print = '<table class ="tg" align="center"><tr><th class="tg-lboi">Accession Number</th><th class="tg-lboi">' + form.sequence.data + \
+                             '</th></tr><tr><td class="tg-lboi">Description</td><td class="tg-lboi">' + results.description + \
+                             '</td></tr><tr><td class="tg-lboi">Sequence</td><td class="tg-lboi">' + results.sequence + \
+                             '</td></tr><tr><td class="tg-lboi">Activity</td><td class="tg-lboi">' + str(results.activity) + \
+                             '</td></tr></table>'
+            flash(Markup(table_to_print))
+        return redirect(url_for('from_up'))
     return render_template('from_up.html', title='Prediction', form=form)
 
 
@@ -49,11 +60,18 @@ def from_igem():
     if form.validate_on_submit():
         results = predict_igem(form.sequence.data)
         if results.error:
-            flash('Error:\t' + results.error_type)
+            table_to_print = '<table class ="tg" align="center"><tr><th class="tg-lboi">Registry Id</th><th class="tg-lboi">' + form.sequence.data + \
+                             '</td></tr><tr><td class="tg-lboi">Error</td><td class="tg-lboi">' + results.error_type + \
+                             '</td></tr></table>'
+            flash(Markup(table_to_print))
+
         else:
-            flash('Description:\t' + results.description)
-            flash('Sequence:\t' + results.sequence)
-            flash('Activity:\t' + str(results.activity))
+            table_to_print = '<table class ="tg" align="center"><tr><th class="tg-lboi">Registry ID</th><th class="tg-lboi">' + form.sequence.data + \
+                             '</th></tr><tr><td class="tg-lboi">Description</td><td class="tg-lboi">' + results.description + \
+                             '</td></tr><tr><td class="tg-lboi">Sequence</td><td class="tg-lboi">' + results.sequence + \
+                             '</td></tr><tr><td class="tg-lboi">Activity</td><td class="tg-lboi">' + str(results.activity) + \
+                             '</td></tr></table>'
+            flash(Markup(table_to_print))
         return redirect(url_for('from_igem'))
     return render_template('from_igem.html', title='Prediction', form=form)
 

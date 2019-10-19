@@ -1,39 +1,40 @@
 <html>
    <head>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
      <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='style.css') }}" >
      <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='layout.css') }}" >
    </head>
    <body>
-     <div class="container">
-       <div class="header_box"  style="background-image:url(../static/background.JPG)">
-       <br>
-         <h1>CPP Activity Predictor</h1>
-         <p>iGEM Team Tübingen 2019</p>
-         <div class="logo">
-             <p class="aligncenter">
-             <img style="width:10%" src="{{url_for("static", filename="T--Tuebingen--white_logo_animated.gif")}}"/>
-             </p>
+     <header>
+         <div class="navbar navbar-dark bg-dark box-shadow">
+           <div class="header_box">
+             <div class="logo">
+                 <p class="aligncenter">
+                 <img style="width:20%" src="{{url_for("static", filename="T--Tuebingen--white_logo_animated.gif")}}"/>
+                 <h1>C3Pred - CPP Activity Predictor</h1>
+                 </p>
+             </div>
+           </div>
          </div>
-       <br>
-       </div >
+     </header>
 
 
-
+     <div class="container">
        <br>
        <div>
           <a href={{ url_for('index') }} style="vertical-align:middle" class='ph-button ph-btn-blue'>&lt;&lt; Back</a>
        </div>
-           <h1>Predict from sequence</h1>
+           <h2>Predict from sequence</h2>
    <form action="" method="post" novalidate>
        {{ form.hidden_tag() }}
        <p>
            {{ form.sequence.label }}<br>
-           {{ form.sequence(size=32) }}<br>
+           {{ form.sequence(class="form-control", placeholder="e.g. AGYLLGKINLKALAALAKKIL") }}<br>
            {% for error in form.sequence.errors %}
            <span style="color: red;">[{{ error }}]</span>
            {% endfor %}
        </p>
-       <p>{{ form.submit() }}</p>
+       <p>{{ form.submit(class='ph-button ph-btn-blue') }}</p>
    </form>
    {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -46,5 +47,11 @@
         {% endwith %}
 
       </div>
+
+      <footer class="text-muted bg-dark">
+          <div class="container_f">
+              <p>iGEM Team Tübingen 2019<br></p>
+          </div>
+      </footer>
    </body>
 </html>
