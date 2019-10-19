@@ -5,6 +5,7 @@ from app.scripts.forms import SequenceForm, UniprotForm, IGEMForm
 from app.scripts.parse_igem_registry import get_registry_info
 from app.scripts.predictor import predict_sequence
 from flask import render_template, redirect, url_for, flash
+from c3pred.c3pred import *
 
 
 @app.route('/')
@@ -17,8 +18,12 @@ def index():
 def fromsequence():
     form = SequenceForm()
     if form.validate_on_submit():
-        flash('Activity of {} : {}'.format(
-            form.sequence.data, predict_sequence(form.sequence.data)))
+        results = predict_fasta(form.sequence.data)
+        if results.error:
+            flash('Error:\t' + results.error_type)
+        else:
+            flash('Sequence:\t' + results.sequence)
+            flash('Activity:\t' + str(results.activity))
         return redirect(url_for('fromsequence'))
     return render_template('fromsequence.html', title='Prediction', form=form)
 
@@ -27,29 +32,14 @@ def fromsequence():
 def from_up():
     form = UniprotForm()
     if form.validate_on_submit():
-        up_id = form.sequence.data
-        unip_info = parse_uniprot(up_id)
-
-        if unip_info.error:
-            flash('Error: {}'.format(
-                unip_info.error_type))
-            flash('UniprotID :{}'.format(
-                up_id))
-            if unip_info.error_type == "sequence is too long":
-                flash('Description: {}'.format(
-                    unip_info.description))
-            return redirect(url_for('from_up'))
+        results = predict_uniprot(form.sequence.data)
+        if results.error:
+            flash('Error:\t' + results.error_type)
         else:
-            flash('UniprotID :{}'.format(
-                up_id))
-            flash('Description: {}'.format(
-                unip_info.description))
-            flash('AA sequence: {}'.format(
-                unip_info.sequence))
-            flash('Activity:{}'.format(
-                predict_sequence(unip_info.sequence)))
-            return redirect(url_for('from_igem'))
-
+            flash('Description:\t' + results.description)
+            flash('Sequence:\t' + results.sequence)
+            flash('Activity:\t' + str(results.activity))
+        return redirect(url_for('from_igem'))
     return render_template('from_up.html', title='Prediction', form=form)
 
 
@@ -57,25 +47,14 @@ def from_up():
 def from_igem():
     form = IGEMForm()
     if form.validate_on_submit():
-        iGEM_id = form.sequence.data
-        reg_info = get_registry_info(iGEM_id)
-
-        if reg_info.error:
-            flash('Error: {}'.format(
-                reg_info.error_type))
-            flash('RegistryID :{}'.format(
-                iGEM_id))
-            return redirect(url_for('from_igem'))
+        results = predict_igem(form.sequence.data)
+        if results.error:
+            flash('Error:\t' + results.error_type)
         else:
-            flash('RegistryID :{}'.format(
-                iGEM_id))
-            flash('Description: {}'.format(
-                reg_info.description))
-            flash('AA sequence: {}'.format(
-                reg_info.sequence))
-            flash('Activity:{}'.format(
-                predict_sequence(reg_info.sequence)))
-            return redirect(url_for('from_igem'))
+            flash('Description:\t' + results.description)
+            flash('Sequence:\t' + results.sequence)
+            flash('Activity:\t' + str(results.activity))
+        return redirect(url_for('from_igem'))
     return render_template('from_igem.html', title='Prediction', form=form)
 
 

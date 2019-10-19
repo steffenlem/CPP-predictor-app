@@ -1,6 +1,6 @@
 import urllib.request
 
-from app.scripts.parsing_result import ParsingResult
+
 
 
 def parse_uniprot(up_id):
@@ -28,6 +28,9 @@ def parse_uniprot(up_id):
         sequence = sequence.replace(" ", "")
         if len(sequence) > 50:
             return ParsingResult(error=True, error_type="sequence is too long",
+                                 description=description, sequence=sequence)
+        else:
+            return ParsingResult(error=False, error_type="no error",
                                  description=description, sequence=sequence)
     except:
         return ParsingResult(error=True, error_type="Uniprot ID not found", description="", sequence="")
