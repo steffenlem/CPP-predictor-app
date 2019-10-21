@@ -1,6 +1,6 @@
-==========================================================
-C3Pred - GUI
-==========================================================
+=======================
+C3Pred - user interface
+=======================
 
 
 Software project of the iGEM Team Tübingen 2019
@@ -19,6 +19,11 @@ C3Pred was released as:
 
 * Web application with an intuitive browser-based graphical user interface 
 * Python package / Command-line tool 
+
+
+Live version of our tool:
+https://igem-tuebingen.com/c3pred/
+
 
 The Python package / Command-line tool can be found here:
 https://github.com/igemsoftware2019/Tuebingen_c3pred
