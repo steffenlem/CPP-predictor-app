@@ -34,10 +34,12 @@
            <span style="color: red;">[{{ error }}]</span>
            {% endfor %}
        </p>
+           Examples: AGYLLGKINLKALAALAKKIL, YGRKKRRQRRR
        <p>{{ form.submit(class='ph-button ph-btn-blue') }}</p>
    </form>
-   {% with messages = get_flashed_messages() %}
+         {% with messages = get_flashed_messages() %}
         {% if messages %}
+        <p>Result</p>
         <ul>
             {% for message in messages %}
             <p>{{ message }}</p>
@@ -45,6 +47,39 @@
         </ul>
         {% endif %}
         {% endwith %}
+
+
+        Input requirements:<br>
+          <ul>
+           <li>Seqeunce length: 4-40 amino acids</li>
+           <li>Offical IUPAC amino acid one-letter code</li>
+           <li>Predictions on sequences containing special amino acids (e.g. 'U' for selenocysteine) are experimental</li>
+           <li>Predictions on sequences of non-linear proteins are not supported</li>
+         </ul>
+         <br>
+         Frequently used CPPs: <br>
+         (reference for activity values)
+        <table class ="tg" >
+          <tr>
+            <th class="tg-lboi"><b>CPP</b></th>
+            <th class="tg-lboi"><b>Acitvity</b></th>
+          </tr>
+          <tr>
+            <td class="tg-lboi">TAT (YGRKKRRQRRR)</td>
+            <td class="tg-lboi">45.9744</td>
+          </tr>
+          <tr>
+            <td class="tg-lboi">Transportan (AGYLLGKINLKALAALAKKIL)</td>
+            <td class="tg-lboi">100.6814</td>
+          </tr>
+          <tr>
+            <td class="tg-lboi">Penetratin (RQIKIWFQNRRMKWKK)</td>
+            <td class="tg-lboi">153.1619</td>
+          </tr>
+        </table>
+        <br>
+
+
 
       </div>
 

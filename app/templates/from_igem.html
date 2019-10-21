@@ -34,10 +34,12 @@
            <span style="color: red;">[{{ error }}]</span>
            {% endfor %}
        </p>
+      Examples: BBa_K380004, BBa_K2660000
        <p>{{ form.submit(class='ph-button ph-btn-blue') }}</p>
    </form>
    {% with messages = get_flashed_messages() %}
         {% if messages %}
+        <p>Result</p>
         <ul>
             {% for message in messages %}
             <p>{{ message }}</p>
@@ -45,6 +47,33 @@
         </ul>
         {% endif %}
         {% endwith %}
+
+        Input requirements:<br>
+          <ul>
+           <li>Seqeunce length: 4-40 amino acids</li>
+           <li>Coding sequence (sequence is translated automatically)</li>
+         </ul>
+         <br>
+         Frequently used CPPs:<br>
+        <table class ="tg" >
+          <tr>
+            <th class="tg-lboi"><b>CPP</b></th>
+            <th class="tg-lboi"><b>Acitvity</b></th>
+          </tr>
+          <tr>
+            <td class="tg-lboi">TAT (YGRKKRRQRRR)</td>
+            <td class="tg-lboi">45.9744</td>
+          </tr>
+          <tr>
+            <td class="tg-lboi">Transportan (AGYLLGKINLKALAALAKKIL)</td>
+            <td class="tg-lboi">100.6814</td>
+          </tr>
+          <tr>
+            <td class="tg-lboi">Penetratin (RQIKIWFQNRRMKWKK)</td>
+            <td class="tg-lboi">153.1619</td>
+          </tr>
+        </table>
+        <br>
 
       </div>
       <footer class="text-muted bg-dark">

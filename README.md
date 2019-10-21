@@ -3,6 +3,11 @@
 Software project of the iGEM Team Tübingen 2019    
 Prediction of cargo transport potential of short peptides.
 
+Documentation
+=====
+
+* Documentation: https://c3pred.readthedocs.io.
+
 Installation
 =====
 1. <code>$ git clone https://github.com/steffenlem/CPP-predictor-app.git</code>

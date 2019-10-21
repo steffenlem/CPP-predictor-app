@@ -1,9 +1,7 @@
 #!flask/bin/python
 from app import app
-from app.scripts.parse_uniprot import parse_uniprot
 from app.scripts.forms import SequenceForm, UniprotForm, IGEMForm
-from app.scripts.parse_igem_registry import get_registry_info
-from app.scripts.predictor import predict_sequence
+
 from flask import render_template, redirect, url_for, flash, Markup
 from c3pred.c3pred import *
 
@@ -27,6 +25,7 @@ def fromsequence():
         else:
             table_to_print = '<table class ="tg" align="center"><tr><th class="tg-lboi">Sequence</th><th class="tg-lboi">' + form.sequence.data + \
                              '</td></tr><tr><td class="tg-lboi">Activity</td><td class="tg-lboi">' + str(results.activity) +  \
+                             '</td></tr><tr><td class="tg-lboi">Activity class</td><td class="tg-lboi">' + results.activity_class +  \
                              '</td></tr></table>'
             flash(Markup(table_to_print))
         return redirect(url_for('fromsequence'))
@@ -48,6 +47,7 @@ def from_up():
                              '</th></tr><tr><td class="tg-lboi">Description</td><td class="tg-lboi">' + results.description + \
                              '</td></tr><tr><td class="tg-lboi">Sequence</td><td class="tg-lboi">' + results.sequence + \
                              '</td></tr><tr><td class="tg-lboi">Activity</td><td class="tg-lboi">' + str(results.activity) + \
+                             '</td></tr><tr><td class="tg-lboi">Activity class</td><td class="tg-lboi">' + results.activity_class +  \
                              '</td></tr></table>'
             flash(Markup(table_to_print))
         return redirect(url_for('from_up'))
@@ -70,6 +70,7 @@ def from_igem():
                              '</th></tr><tr><td class="tg-lboi">Description</td><td class="tg-lboi">' + results.description + \
                              '</td></tr><tr><td class="tg-lboi">Sequence</td><td class="tg-lboi">' + results.sequence + \
                              '</td></tr><tr><td class="tg-lboi">Activity</td><td class="tg-lboi">' + str(results.activity) + \
+                             '</td></tr><tr><td class="tg-lboi">Activity class</td><td class="tg-lboi">' + results.activity_class +  \
                              '</td></tr></table>'
             flash(Markup(table_to_print))
         return redirect(url_for('from_igem'))
