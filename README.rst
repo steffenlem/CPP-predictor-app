@@ -37,6 +37,16 @@ Installation and Usage
 Documentation: https://c3pred.readthedocs.io.
 
 
+
+Demonstration
+-------------
+
+.. image:: T--Tuebingen--c3pred_demo_1.gif
+    :alt: demo of c3pred
+
+
+
+
 License
 -------
 
