@@ -1,6 +1,6 @@
-=======================
-C3Pred - user interface
-=======================
+================
+C3Pred - Web App
+================
 
 
 Software project of the iGEM Team Tübingen 2019
